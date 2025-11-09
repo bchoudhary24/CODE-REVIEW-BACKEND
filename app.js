@@ -1,5 +1,5 @@
 const express = require('express');
-const aiRoutes = require('./src/routes/ai.routes');
+const aiRoutes = require('./ai.routes');
 const cors = require('cors');
 
 const app = express();
@@ -14,3 +14,4 @@ app.use('/ai', aiRoutes);
 
 
 module.exports = app;
+
