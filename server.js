@@ -1,20 +1,22 @@
-const app = require('./app');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
+const aiRoutes = require("./routes/aiRoutes");
 
-app.use(
-  cors({
-    origin: [
-      "https://55b9d4d3.code-review-frontend.pages.dev",
-      "https://02dcdf4a.code-review-frontend.pages.dev"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  })
-);
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-const port = process.env.PORT || 3000;
+// ✅ Allow only your final frontend domain
+app.use(cors({
+  origin: "https://code-review-frontend.pages.dev"
+}));
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// ✅ Middleware
+app.use(express.json());
+
+// ✅ Routes
+app.use("/ai", aiRoutes);
+
+// ✅ Start server
+app.listen(PORT, () => {
+  console.log(✅ Server is running on http://localhost:${PORT});
 });
-
