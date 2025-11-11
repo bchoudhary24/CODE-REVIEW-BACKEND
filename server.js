@@ -40,7 +40,7 @@ app.post("/ai/get-review", async (req, res) => {
     if (!code) return res.status(400).json({ error: "No code provided" });
 
     // 👇 Your AI logic (for now, just dummy response)
-    const review = Here's a quick review of your code:\n\n✅ Logic looks fine.\n⚙ You can improve by adding error handling.;
+    const review = `Here's a quick review of your code:\n\n✅ Logic looks fine.\n⚙ You can improve by adding error handling.`;
 
     res.json({ review });
   } catch (error) {
@@ -53,3 +53,4 @@ app.post("/ai/get-review", async (req, res) => {
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
 });
+
