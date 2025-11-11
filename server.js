@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const aiRoutes = require("./aiRoutes");
+const aiRoutes = require("./ai.routes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,5 +20,6 @@ app.use("/ai", aiRoutes);
 app.listen(PORT, () => {
   console.log(`✅ Server is running on http://localhost:${PORT}`);
 });
+
 
 
