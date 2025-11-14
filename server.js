@@ -1,17 +1,17 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import reviewCode from "./ai.service.js";  // <-- IMPORTANT
+import { reviewCode } from "./ai.service.js";
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Allowed frontend URLs
+// Allowed Origins
 const allowedOrigins = [
   "https://code-review-frontend.pages.dev",
   "https://02dcdf4a.code-review-frontend.pages.dev",
-  "http://localhost:5173",
+  "http://localhost:5173"
 ];
 
 app.use(
@@ -20,13 +20,42 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("CORS blocked for origin: " + origin));
+        callback(new Error("CORS blocked: " + origin));
       }
-    },
+    }
   })
 );
 
 app.use(express.json());
+
+// Base Route
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running perfectly!");
+});
+
+// ⭐ AI Review Route
+app.post("/ai/get-review", async (req, res) => {
+  try {
+    const { code } = req.body;
+
+    if (!code) {
+      return res.status(400).json({ error: "No code provided" });
+    }
+
+    const review = await reviewCode(code);
+    res.json({ review });
+
+  } catch (error) {
+    console.error("❌ Server Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Start Server
+app.listen(port, () => {
+  console.log(`🚀 Server running on port ${port}`);
+});
+
 
 // Base route
 app.get("/", (req, res) => {
@@ -55,5 +84,6 @@ app.post("/ai/get-review", async (req, res) => {
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
 });
+
 
 
