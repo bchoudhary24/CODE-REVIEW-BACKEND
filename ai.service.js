@@ -96,4 +96,5 @@ async function aiService(code) {
     }
 }
 
-module.exports = aiService;
+
+export default aiService;
