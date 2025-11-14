@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { reviewCode } from "./ai.services.js";  // <-- IMPORTANT
+import { reviewCode } from "./ai.service.js";  // <-- IMPORTANT
 
 dotenv.config();
 const app = express();
@@ -55,3 +55,4 @@ app.post("/ai/get-review", async (req, res) => {
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
 });
+
